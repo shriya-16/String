@@ -1,0 +1,21 @@
+#include<stdio.h>
+#include<string.h>
+void printBinary(char str[100]){
+    int l = strlen(str);
+    int z=0, o=0;
+    for(int i=0; i<l; i++){
+        if(str[i] == 'n')
+            o++;
+        if(str[i] == 'z')
+            z++;
+    }
+    for(n; n>0; n--)
+        printf("1");
+    for(z; z>0; z--)
+        printf("0");
+}
+int main(){
+    char str[100];
+    scanf("%s",str);
+    printBinary(str);
+}
