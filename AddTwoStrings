@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+//As numbers are added from right, a function to reverse.
+char * reverse(char str[])
+{
+    int i,j;
+    for(i=0,j=strlen(str)- 1; i<j; ++i,j--)
+    {
+        char ch = str[i];
+        str[i]=str[j];
+        str[j]=ch;
+    }
+    return str;
+}
+char* add(char S1[],char S2[],char *p)
+{
+    int i, j, k=0, carry = 0;
+    char str[100];
+    int n1 = strlen(S1);
+    int n2 = strlen(S2);
+    for(i=n1- 1,j=n2-1; i>=0 && j>=0; i--,j--){
+        int l = S1[i]+S2[j]-96+carry;
+        if(l > 9){
+            str[k] = l%10 + 48;
+            carry = l/10;
+        }
+        else{
+            str[k] = l+ 48;
+            carry = 0;
+        }
+        k++;
+    }
+    //In case length of first string is greater
+    while(i>=0){
+        int l = S1[i] - 48 +carry;
+        if(l>9){
+            str[k] = l%10 + 48;
+            carry = l/10;
+        }
+        else{
+            str[k] = l + 48;
+            carry = 0;
+        }
+        k++;
+        i--;
+    }
+    //In case length of second string is greater
+    while(j>=0){
+        int l = S2[j]- 48+carry;
+        if(l>9){
+            str[k] = l%10 + 48;
+            carry = l/10;
+        }
+        else{
+            str[k] = l + 48;
+            carry = 0;
+        }
+        k++;
+        j--;
+    }
+    if(carry!=0){
+        str[k] = carry+ 48;
+        str[k+1] = '\0';
+    }
+    else
+        str[k] = '\0';
+    strcpy(str,reverse(str));
+    p=str;
+    return p;
+}
+
+void main()
+{
+    char * str;
+    char num1[100], num2[100], result[100];
+    scanf("%s %s",num1,num2);
+    strcpy(result,add(num1,num2,str));
+    printf("%s",result);
+}
