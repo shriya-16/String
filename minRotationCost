@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
+int gcd(int a, int b){
+    if(b == 0)
+        return a;
+    return gcd(b, a%b);
+}
+int lcm(int arr[], int n){
+    int ans = arr[0], M = pow(10,9)+7;;
+    for(int i=1; i<n; i++)
+        ans = (arr[i]*ans)/(gcd(arr[i], ans));
+    return ans % M;
+}
+char* substr(char str[], int start, int end){
+    char* sub = (char*)malloc(sizeof(char)*(end-start));
+    for(int i=start; i<=end; i++){
+        sub[i] = str[i];
+    }
+    return sub;
+}
+int noOfRotations(char str[]){
+    int n = strlen(str), i=0, j, k=1;
+    if(n==1){
+        printf("1 ");
+        return 1;   
+    }
+    char temp[n], *sub = (char*)malloc(sizeof(char)*n);
+    strcpy(temp, str);
+    while(1){
+        if(k%n==0)
+            i=0;
+        sub = substr(str, 0, i);
+        printf("%s ",sub);
+        strcat(str, sub);
+        for(j=0; j<n; j++)
+            str[j] = str[j+1+i];
+        str[j] = '\0';
+        if(!strcmp(str, temp))
+            break;
+        k++;
+        i++;
+    }
+    printf("%d ",k);
+    return k;
+}
+int main(){
+    int n, minRotations, i;
+    scanf("%d",&n);
+    char str[n][50];
+    int arr[n];
+    for(i=0; i<n; i++)
+        scanf("%s",str[i]);
+    for(i=0; i<n; i++)
+        arr[i] = noOfRotations(str[i]);
+    minRotations = lcm(arr, n);
+    printf("%d",minRotations);
+    return 0;
+}
