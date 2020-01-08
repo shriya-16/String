@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void longestSubsequence(string str, int k){
+  int l = str.length();
+  //create an array to store the frequency of string
+  int freq[26] = {0};    
+  
+  for(int i = 0; i < l; i++)
+    freq[str[i]-'a']++;
+  
+  //Iterate the string
+  for(int i = 0; i < l; i++){
+    if(freq[str[i]-'a'] >= k)
+      cout << str[i];
+  }
+}
+
+int main(){
+  string str;
+  int k;
+  cin >> str >> k;
+  longestSubsequence(str, k);
+  return 0;
+}
