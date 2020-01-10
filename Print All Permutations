@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+//Function to print all the permutations
+void allPermLex(string s, char* data, int last, int ind){
+    int i, l = s.length();
+    for(i = 0; i < l; i++){
+        data[ind] = s[i];
+        if(ind == last)
+            cout << data << endl;
+        else
+            allPermLex(s, data, last, ind+1);
+    }
+}
+
+void allLex(string s){
+
+    //sort the string for lexigrophical order
+    sort(s.begin(), s.end());
+    int l = s.length();
+    
+    //to store the permutations 
+    char* data = (char *)malloc(sizeof(char)*(l+1));
+    data[l] = '\0';
+    allPermLex(s, data, l-1, 0);
+}
+
+int main(){
+    string s;
+    cin >> s;
+    allLex(s);
+    return 0;
+}
